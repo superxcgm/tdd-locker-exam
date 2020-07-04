@@ -101,3 +101,9 @@ TEST_F(ALockerRobotManager, should_take_correct_bag_when_take_bag_given_a_valid_
 
     ASSERT_EQ(got_bag, &bag);
 }
+
+TEST_F(ALockerRobotManager, should_throw_InvalidTicketException_when_take_bag_given_a_fake_S_size_ticket) {
+    auto fake_ticket = Ticket(666, Size::kSmall);
+
+    ASSERT_THROW(manager_->take(fake_ticket), Locker::InvalidTicketException);
+}
