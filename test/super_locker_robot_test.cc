@@ -92,3 +92,9 @@ TEST(SuperLockerRobot, should_throw_WrongTicketTypeException_when_take_bag_given
 
     ASSERT_THROW(robot.take(non_L_size_ticket), Locker::WrongTicketTypeException);
 }
+
+TEST(SuperLockerRobot, should_throw_WrongConfigException_when_config_SuperLockerRobot_given_non_L_size_locker) {
+    auto non_L_size_locker = Locker(2, Size::kMedium);
+
+    ASSERT_THROW(SuperLockerRobot{{&non_L_size_locker}}, WrongConfigException);
+}

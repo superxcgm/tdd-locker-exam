@@ -5,7 +5,11 @@
 #include "super_locker_robot.h"
 
 SuperLockerRobot::SuperLockerRobot(std::vector<Locker *> lockers) : lockers_(std::move(lockers)) {
-
+    for (auto &locker : lockers_) {
+        if (locker->getSize() != Size::kLarge) {
+            throw WrongConfigException();
+        }
+    }
 }
 
 std::optional<Ticket> SuperLockerRobot::store(Bag *bag) {
