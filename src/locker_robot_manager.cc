@@ -16,6 +16,8 @@ std::optional<Ticket> LockerRobotManager::store(Bag *bag) {
             return locker_->store(bag);
         case Size::kMedium:
             return primary_locker_robot_->store(bag);
+        case Size::kLarge:
+            return super_locker_robot_->store(bag);
     }
     return {};
 }
