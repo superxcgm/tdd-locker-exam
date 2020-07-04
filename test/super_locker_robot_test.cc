@@ -66,3 +66,13 @@ TEST(SuperLockerRobot,
     ASSERT_THROW(robot.store(&bag), Locker::LockerFullException);
 }
 
+TEST(SuperLockerRobot, should_take_correct_bag_when_take_bag_given_a_valid_ticket) {
+    auto locker = Locker(2, Size::kLarge);
+    SuperLockerRobot robot({&locker});
+    Bag bag;
+    auto optional_ticket = robot.store(&bag);
+
+    auto got_bag = robot.take(optional_ticket.value());
+
+    ASSERT_EQ(got_bag, &bag);
+}

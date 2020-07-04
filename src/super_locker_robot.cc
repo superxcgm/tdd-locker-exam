@@ -21,3 +21,12 @@ std::optional<Ticket> SuperLockerRobot::store(Bag *bag) {
     }
     return highest_empty_ratio_locker->store(bag);
 }
+
+Bag *SuperLockerRobot::take(const Ticket &ticket) {
+    for (auto &locker : lockers_) {
+        if (locker->isReleasedAndNotUsedTicket(ticket)) {
+            return locker->take(ticket);
+        }
+    }
+    return nullptr;
+}
