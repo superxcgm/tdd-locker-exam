@@ -3,3 +3,5 @@
 //
 
 #include "ticket.h"
+
+int Ticket::id_count_ = 0;

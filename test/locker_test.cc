@@ -20,3 +20,13 @@ TEST(LockerTest, should_throw_LockerFullException_when_store_bag_given_locker_fu
 
     ASSERT_THROW(locker.store({}), Locker::LockerFullException);
 }
+
+TEST(LockerTest, should_take_correct_bag_when_take_bag_given_valid_ticket) {
+    Locker locker(1);
+    Bag bag;
+    auto optional_ticket = locker.store(&bag);
+
+    Bag *got_bag = locker.take(optional_ticket.value());
+
+    ASSERT_EQ(got_bag, &bag);
+}

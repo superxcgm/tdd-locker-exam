@@ -11,5 +11,14 @@ std::optional<Ticket> Locker::store(Bag *bag) {
         throw LockerFullException();
     }
     --available_capacity_;
-    return Ticket{};
+    Ticket ticket = Ticket::GenerateTicket();
+    ticket_bag_map[ticket] = bag;
+    return ticket;
+}
+
+Bag *Locker::take(Ticket &ticket) {
+    if (ticket_bag_map.find(ticket) != ticket_bag_map.end()) {
+        return ticket_bag_map[ticket];
+    }
+    return nullptr;
 }
