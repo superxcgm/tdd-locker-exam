@@ -9,5 +9,10 @@ PrimaryLockerRobot::PrimaryLockerRobot(std::vector<Locker *> lockers) : lockers_
 }
 
 std::optional<Ticket> PrimaryLockerRobot::store(Bag *bag) {
-    return lockers_[0]->store(bag);
+    for (auto &locker : lockers_) {
+        if (locker->isNotFull()) {
+            return locker->store(bag);
+        }
+    }
+    return {};
 }

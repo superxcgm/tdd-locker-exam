@@ -26,7 +26,6 @@ public:
 
 private:
     const int capacity_;
-    int available_capacity_;
     const Size size_;
     std::unordered_map<Ticket, Bag *, Ticket::HashFunc> ticket_bag_map;
 public:
@@ -36,6 +35,14 @@ public:
     std::optional<Ticket> store(Bag *bag);
 
     Bag *take(Ticket &ticket);
+
+    bool isNotFull() {
+        return capacity_ != ticket_bag_map.size();
+    }
+
+    bool isFull() {
+        return !isNotFull();
+    }
 };
 
 
