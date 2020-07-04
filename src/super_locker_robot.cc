@@ -4,12 +4,9 @@
 
 #include "super_locker_robot.h"
 
-SuperLockerRobot::SuperLockerRobot(std::vector<Locker *> lockers) : lockers_(std::move(lockers)) {
-    for (auto &locker : lockers_) {
-        if (locker->getSize() != Size::kLarge) {
-            throw WrongConfigException();
-        }
-    }
+#include <utility>
+
+SuperLockerRobot::SuperLockerRobot(std::vector<Locker *> lockers) : LockerRobot(std::move(lockers), Size::kLarge) {
 }
 
 std::optional<Ticket> SuperLockerRobot::store(Bag *bag) {
@@ -24,16 +21,4 @@ std::optional<Ticket> SuperLockerRobot::store(Bag *bag) {
         }
     }
     return highest_empty_ratio_locker->store(bag);
-}
-
-Bag *SuperLockerRobot::take(const Ticket &ticket) {
-    if (ticket.size_ != Size::kLarge) {
-        throw Locker::WrongTicketTypeException();
-    }
-    for (auto &locker : lockers_) {
-        if (locker->isReleasedAndNotUsedTicket(ticket)) {
-            return locker->take(ticket);
-        }
-    }
-    throw Locker::InvalidTicketException();
 }

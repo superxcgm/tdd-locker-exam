@@ -85,7 +85,6 @@ TEST(PrimaryLockerRobotTest, should_throw_WrongConfigException_when_config_Prima
     ASSERT_THROW(PrimaryLockerRobot{{&locker}}, WrongConfigException);
 }
 
-
 TEST(PrimaryLockerRobotTest,
      should_throw_WrongConfigException_when_config_PrimaryLockerRobot_given_two_PrimaryLockerRobot_manage_same_locker) {
     auto locker = Locker(1, Size::kMedium);

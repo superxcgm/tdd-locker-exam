@@ -98,3 +98,11 @@ TEST(SuperLockerRobot, should_throw_WrongConfigException_when_config_SuperLocker
 
     ASSERT_THROW(SuperLockerRobot{{&non_L_size_locker}}, WrongConfigException);
 }
+
+TEST(SuperLockerRobot,
+     should_throw_WrongConfigException_when_config_SuperLockerRobot_given_two_SuperLockerRobot_manage_same_Locker) {
+    auto locker = Locker(2, Size::kLarge);
+    SuperLockerRobot robot({&locker});
+
+    ASSERT_THROW(SuperLockerRobot{{&locker}}, WrongConfigException);
+}

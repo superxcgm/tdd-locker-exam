@@ -9,15 +9,12 @@
 #include <vector>
 #include "locker.h"
 
-class PrimaryLockerRobot {
-    std::vector<Locker *> lockers_;
+class PrimaryLockerRobot : public LockerRobot {
 public:
 
     explicit PrimaryLockerRobot(std::vector<Locker *> lockers);
 
     std::optional<Ticket> store(Bag *bag);
-
-    Bag *take(const Ticket &ticket);
 };
 
 
