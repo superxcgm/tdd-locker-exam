@@ -20,6 +20,9 @@ std::optional<Ticket> PrimaryLockerRobot::store(Bag *bag) {
 }
 
 Bag *PrimaryLockerRobot::take(const Ticket &ticket) {
+    if (ticket.size_ != Size::kMedium) {
+        throw Locker::WrongTicketTypeException();
+    }
     for (auto &locker : lockers_) {
         if (locker->isReleasedAndNotUsedTicket(ticket)) {
             return locker->take(ticket);

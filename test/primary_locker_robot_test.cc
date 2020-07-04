@@ -69,3 +69,12 @@ TEST(PrimaryLockerRobotTest, should_throw_InvalidTicketException_when_take_bag_g
 
     ASSERT_THROW(robot.take(fake_ticket), Locker::InvalidTicketException);
 }
+
+TEST(PrimaryLockerRobotTest, should_throw_WrongTicketTypeException_when_take_bag_given_none_M_Size_Ticket) {
+    auto locker = Locker(1, Size::kMedium);
+    PrimaryLockerRobot robot({&locker});
+
+    auto fake_ticket = Ticket(666, Size::kLarge);
+
+    ASSERT_THROW(robot.take(fake_ticket), Locker::WrongTicketTypeException);
+}
