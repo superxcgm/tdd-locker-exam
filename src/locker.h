@@ -63,6 +63,10 @@ public:
     bool hasManager() {
         return manager_ != nullptr;
     }
+
+    double getEmptyRatio() {
+        return (capacity_ - 1.0 * ticket_bag_map.size()) / capacity_;
+    }
 };
 
 
