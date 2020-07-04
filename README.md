@@ -112,7 +112,83 @@ When：配置PrimaryLockerRobot
 
 Then：提示配置有误
 
+## Tasking for SuperLockerRobot
 
+1.
+
+Given：SuperLockerRobot管理2个L号Locker，第一个Locker置空率更高
+
+When：存包
+
+Then：存包成功，返回票据，包被存入第一个Locker
+
+2.
+
+Given：SuperLockerRobot管理2个L号Locker，第二个Locker置空率更高
+
+When：存包
+
+Then：存包成功，返回票据，包被存入第二个Locker
+
+3.
+
+Given：SuperLockerRobot管理2个L号Locker，两个Locker置空率一样
+
+When：存包
+
+Then：存包成功，返回票据，包被存入第一个Locker
+
+4.
+
+Given：SuperLockerRobot管理2个L号Locker，这两个Locker都满了
+
+When：存包
+
+Then：存包失败，提示Locker满了
+
+5.
+
+Given：合法的票据
+
+When：取包
+
+Then：取包成功，取到正确的包
+
+6.
+
+Given：伪造的票据
+
+When：取包
+
+Then：取包失败，提示票据不合法
+
+7.
+
+Given：票据型号不是L
+
+When：取包
+
+Then：取包失败，提示票的型号不对
+
+8.
+
+Given：不是L号的Locker
+
+When：配置SuperLockerRobot
+
+Then：提示配置有误
+
+9.
+
+Given：2个SuperLockerRobot管理同一个Locker
+
+When：配置SuperLockerRobot
+
+Then：提示配置有误
+
+
+
+由于SuperLockerRobot只能管理L号的Locker，PrimaryLockerRobot只能管理M号的Locker，所以这里不考虑SuperLockerRobot和PrimaryLockerRobot管理同一个Locker。
 
 ## Build
 
