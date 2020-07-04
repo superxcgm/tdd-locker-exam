@@ -60,3 +60,12 @@ TEST(PrimaryLockerRobotTest, should_take_correct_bag_when_take_bag_given_valid_t
 
     ASSERT_EQ(got_bag, &bag);
 }
+
+TEST(PrimaryLockerRobotTest, should_throw_InvalidTicketException_when_take_bag_given_fake_ticket) {
+    auto locker = Locker(1, Size::kMedium);
+    PrimaryLockerRobot robot({&locker});
+
+    auto fake_ticket = Ticket(666, Size::kMedium);
+
+    ASSERT_THROW(robot.take(fake_ticket), Locker::InvalidTicketException);
+}
