@@ -35,3 +35,17 @@ TEST(PrimayLockerRobotTest,
     auto got_bag = second_locker.take(optional_ticket.value());
     ASSERT_EQ(got_bag, &bag);
 }
+
+TEST(PrimaryLockerRobotTest,
+     should_throw_LockerFullException_when_store_bag_given_PrimaryLockerRobot_manage_two_M_size_locker_and_both_full) {
+    auto first_locker = Locker(1, Size::kMedium);
+    Bag useless_bag1;
+    first_locker.store(&useless_bag1);
+    auto second_locker = Locker(1, Size::kMedium);
+    Bag useless_bag2;
+    second_locker.store(&useless_bag2);
+    PrimaryLockerRobot robot({&first_locker, &second_locker});
+    Bag bag;
+
+    ASSERT_THROW(robot.store(&bag), Locker::LockerFullException);
+}

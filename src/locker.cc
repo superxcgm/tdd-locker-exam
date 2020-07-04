@@ -20,7 +20,9 @@ Bag *Locker::take(Ticket &ticket) {
         throw WrongTicketTypeException();
     }
     if (ticket_bag_map.find(ticket) != ticket_bag_map.end()) {
-        return ticket_bag_map[ticket];
+        auto bag = ticket_bag_map[ticket];
+        ticket_bag_map.erase(ticket);
+        return bag;
     }
     throw InvalidTicketException();
 }

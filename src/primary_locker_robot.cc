@@ -14,5 +14,5 @@ std::optional<Ticket> PrimaryLockerRobot::store(Bag *bag) {
             return locker->store(bag);
         }
     }
-    return {};
+    throw Locker::LockerFullException();
 }
