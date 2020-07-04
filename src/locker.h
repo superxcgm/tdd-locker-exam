@@ -9,6 +9,9 @@
 #include <unordered_map>
 #include "ticket.h"
 #include "bag.h"
+#include "wrong_config_exception.h"
+
+class PrimaryLockerRobot;
 
 class Locker {
 public:
@@ -27,6 +30,7 @@ public:
 private:
     const int capacity_;
     const Size size_;
+    PrimaryLockerRobot *manager_ = nullptr;
     std::unordered_map<Ticket, Bag *, Ticket::HashFunc> ticket_bag_map;
 public:
 
@@ -50,6 +54,14 @@ public:
 
     Size getSize() {
         return size_;
+    }
+
+    void setManager(PrimaryLockerRobot *manager) {
+        manager_ = manager;
+    }
+
+    bool hasManager() {
+        return manager_ != nullptr;
     }
 };
 

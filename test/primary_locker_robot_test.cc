@@ -82,5 +82,14 @@ TEST(PrimaryLockerRobotTest, should_throw_WrongTicketTypeException_when_take_bag
 TEST(PrimaryLockerRobotTest, should_throw_WrongConfigException_when_config_PrimaryLockerRobot_given_non_M_Size_Locker) {
     auto locker = Locker(1, Size::kLarge);
 
-    ASSERT_THROW(PrimaryLockerRobot{{&locker}}, PrimaryLockerRobot::WrongConfigException);
+    ASSERT_THROW(PrimaryLockerRobot{{&locker}}, WrongConfigException);
+}
+
+
+TEST(PrimaryLockerRobotTest,
+     should_throw_WrongConfigException_when_config_PrimaryLockerRobot_given_two_PrimaryLockerRobot_manage_same_locker) {
+    auto locker = Locker(1, Size::kMedium);
+    PrimaryLockerRobot robot({&locker});
+
+    ASSERT_THROW(PrimaryLockerRobot{{&locker}}, WrongConfigException);
 }

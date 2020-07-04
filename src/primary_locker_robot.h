@@ -12,9 +12,6 @@
 class PrimaryLockerRobot {
     std::vector<Locker *> lockers_;
 public:
-    class WrongConfigException : std::exception {
-
-    };
 
     explicit PrimaryLockerRobot(std::vector<Locker *> lockers);
 

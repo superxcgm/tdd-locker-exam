@@ -11,6 +11,10 @@ PrimaryLockerRobot::PrimaryLockerRobot(std::vector<Locker *> lockers) : lockers_
         if (locker->getSize() != Size::kMedium) {
             throw WrongConfigException();
         }
+        if (locker->hasManager()) {
+            throw WrongConfigException();
+        }
+        locker->setManager(this);
     }
 }
 
