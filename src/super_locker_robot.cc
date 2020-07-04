@@ -28,5 +28,5 @@ Bag *SuperLockerRobot::take(const Ticket &ticket) {
             return locker->take(ticket);
         }
     }
-    return nullptr;
+    throw Locker::InvalidTicketException();
 }

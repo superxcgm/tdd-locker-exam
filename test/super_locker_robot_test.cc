@@ -76,3 +76,11 @@ TEST(SuperLockerRobot, should_take_correct_bag_when_take_bag_given_a_valid_ticke
 
     ASSERT_EQ(got_bag, &bag);
 }
+
+TEST(SuperLockerRobot, should_take_correct_bag_when_take_bag_given_a_fake_ticket) {
+    auto locker = Locker(2, Size::kLarge);
+    SuperLockerRobot robot({&locker});
+    auto fake_ticket = Ticket(666, Size::kLarge);
+
+    ASSERT_THROW(robot.take(fake_ticket), Locker::InvalidTicketException);
+}
