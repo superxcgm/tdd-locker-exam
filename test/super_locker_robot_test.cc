@@ -84,3 +84,11 @@ TEST(SuperLockerRobot, should_take_correct_bag_when_take_bag_given_a_fake_ticket
 
     ASSERT_THROW(robot.take(fake_ticket), Locker::InvalidTicketException);
 }
+
+TEST(SuperLockerRobot, should_throw_WrongTicketTypeException_when_take_bag_given_a_non_L_size_ticket) {
+    auto locker = Locker(2, Size::kLarge);
+    SuperLockerRobot robot({&locker});
+    auto non_L_size_ticket = Ticket(666, Size::kMedium);
+
+    ASSERT_THROW(robot.take(non_L_size_ticket), Locker::WrongTicketTypeException);
+}

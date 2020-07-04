@@ -23,6 +23,9 @@ std::optional<Ticket> SuperLockerRobot::store(Bag *bag) {
 }
 
 Bag *SuperLockerRobot::take(const Ticket &ticket) {
+    if (ticket.size_ != Size::kLarge) {
+        throw Locker::WrongTicketTypeException();
+    }
     for (auto &locker : lockers_) {
         if (locker->isReleasedAndNotUsedTicket(ticket)) {
             return locker->take(ticket);

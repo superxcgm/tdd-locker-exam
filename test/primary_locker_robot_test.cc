@@ -74,9 +74,9 @@ TEST(PrimaryLockerRobotTest, should_throw_WrongTicketTypeException_when_take_bag
     auto locker = Locker(1, Size::kMedium);
     PrimaryLockerRobot robot({&locker});
 
-    auto fake_ticket = Ticket(666, Size::kLarge);
+    auto non_M_size_ticket = Ticket(666, Size::kLarge);
 
-    ASSERT_THROW(robot.take(fake_ticket), Locker::WrongTicketTypeException);
+    ASSERT_THROW(robot.take(non_M_size_ticket), Locker::WrongTicketTypeException);
 }
 
 TEST(PrimaryLockerRobotTest, should_throw_WrongConfigException_when_config_PrimaryLockerRobot_given_non_M_Size_Locker) {
