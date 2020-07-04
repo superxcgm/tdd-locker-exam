@@ -39,3 +39,19 @@ TEST(LockerRobotManager,
 
     ASSERT_THROW(manager.store(&bag), Locker::LockerFullException);
 }
+
+TEST(LockerRobotManager,
+     should_return_ticket_and_store_bag_to_PrimaryLockerRobot_when_store_bag_given_PrimaryLockerRobot_not_full) {
+    auto s_size_locker = Locker{1, Size::kSmall};
+    auto m_size_locker = Locker{1, Size::kMedium};
+    auto primary_locker_robot = PrimaryLockerRobot({&m_size_locker});
+    auto l_size_locker = Locker{1, Size::kLarge};
+    auto super_locker_robot = SuperLockerRobot({&l_size_locker});
+    LockerRobotManager manager(&s_size_locker, &primary_locker_robot, &super_locker_robot);
+    Bag bag{Size::kMedium};
+
+    auto optional_ticket = manager.store(&bag);
+    ASSERT_TRUE(optional_ticket.has_value());
+    auto got_bag = primary_locker_robot.take(optional_ticket.value());
+    ASSERT_EQ(got_bag, &bag);
+}
