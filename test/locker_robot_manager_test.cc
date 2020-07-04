@@ -137,3 +137,14 @@ TEST_F(ALockerRobotManager, should_throw_InvalidTicketException_when_take_bag_gi
 
     ASSERT_THROW(manager_->take(fake_ticket), Locker::InvalidTicketException);
 }
+
+TEST(LockerRobotManager, should_throw_WrongConfigException_when_config_LockerRobotManager_given_non_s_size_locker) {
+    auto non_s_size_locker = Locker(1, Size::kMedium);
+    auto m_size_locker = Locker(1, Size::kMedium);
+    auto primary_locker_robot = PrimaryLockerRobot({&m_size_locker});
+    auto l_size_locker = Locker(1, Size::kLarge);
+    auto super_locker_robot = SuperLockerRobot({&l_size_locker});
+
+    ASSERT_THROW(LockerRobotManager(&non_s_size_locker, &primary_locker_robot, &super_locker_robot),
+                 WrongConfigException);
+}

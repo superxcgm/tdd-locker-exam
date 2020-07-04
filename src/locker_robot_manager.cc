@@ -7,7 +7,9 @@
 LockerRobotManager::LockerRobotManager(Locker *locker, PrimaryLockerRobot *primary_locker_robot,
                                        SuperLockerRobot *super_locker_robot) : locker_(locker), primary_locker_robot_(
         primary_locker_robot), super_locker_robot_(super_locker_robot) {
-
+    if (locker_->getSize() != Size::kSmall) {
+        throw WrongConfigException();
+    }
 }
 
 std::optional<Ticket> LockerRobotManager::store(Bag *bag) {
