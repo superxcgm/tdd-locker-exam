@@ -7,7 +7,11 @@
 #include <utility>
 
 PrimaryLockerRobot::PrimaryLockerRobot(std::vector<Locker *> lockers) : lockers_(std::move(lockers)) {
-
+    for (auto &locker : lockers_) {
+        if (locker->getSize() != Size::kMedium) {
+            throw WrongConfigException();
+        }
+    }
 }
 
 std::optional<Ticket> PrimaryLockerRobot::store(Bag *bag) {

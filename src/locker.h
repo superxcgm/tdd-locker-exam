@@ -47,6 +47,10 @@ public:
     bool isReleasedAndNotUsedTicket(const Ticket &ticket) {
         return ticket_bag_map.find(ticket) != ticket_bag_map.end();
     }
+
+    Size getSize() {
+        return size_;
+    }
 };
 
 
