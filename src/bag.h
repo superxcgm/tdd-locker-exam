@@ -5,9 +5,10 @@
 #ifndef TDD_LOCKER_EXAM_BAG_H
 #define TDD_LOCKER_EXAM_BAG_H
 
+#include "size.h"
 
-class Bag {
-
+struct Bag {
+    Size size_;
 };
 
 
