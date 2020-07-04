@@ -18,6 +18,8 @@ public:
     LockerRobotManager(Locker *locker, PrimaryLockerRobot *primary_locker_robot, SuperLockerRobot *super_locker_robot);
 
     std::optional<Ticket> store(Bag *bag);
+
+    Bag *take(const Ticket &ticket);
 };
 
 

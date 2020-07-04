@@ -21,3 +21,7 @@ std::optional<Ticket> LockerRobotManager::store(Bag *bag) {
     }
     return {};
 }
+
+Bag *LockerRobotManager::take(const Ticket &ticket) {
+    return locker_->take(ticket);
+}
