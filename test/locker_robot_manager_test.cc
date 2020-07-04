@@ -25,3 +25,17 @@ TEST(LockerRobotManager,
     ASSERT_EQ(got_bag, &bag);
 }
 
+TEST(LockerRobotManager,
+     should_throw_LockerFullException_when_store_bag_given_S_size_locker_full) {
+    auto s_size_locker = Locker{1, Size::kSmall};
+    Bag useless_bag;
+    s_size_locker.store(&useless_bag);
+    auto m_size_locker = Locker{1, Size::kMedium};
+    auto primary_locker_robot = PrimaryLockerRobot({&m_size_locker});
+    auto l_size_locker = Locker{1, Size::kLarge};
+    auto super_locker_robot = SuperLockerRobot({&l_size_locker});
+    LockerRobotManager manager(&s_size_locker, &primary_locker_robot, &super_locker_robot);
+    Bag bag{Size::kSmall};
+
+    ASSERT_THROW(manager.store(&bag), Locker::LockerFullException);
+}
