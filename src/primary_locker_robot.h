@@ -12,9 +12,11 @@
 class PrimaryLockerRobot {
     std::vector<Locker *> lockers_;
 public:
-    PrimaryLockerRobot(std::vector<Locker *> lockers);
+    explicit PrimaryLockerRobot(std::vector<Locker *> lockers);
 
     std::optional<Ticket> store(Bag *bag);
+
+    Bag *take(const Ticket &ticket);
 };
 
 

@@ -15,11 +15,11 @@ std::optional<Ticket> Locker::store(Bag *bag) {
     return ticket;
 }
 
-Bag *Locker::take(Ticket &ticket) {
+Bag *Locker::take(const Ticket &ticket) {
     if (ticket.size_ != size_) {
         throw WrongTicketTypeException();
     }
-    if (ticket_bag_map.find(ticket) != ticket_bag_map.end()) {
+    if (isReleasedAndNotUsedTicket(ticket)) {
         auto bag = ticket_bag_map[ticket];
         ticket_bag_map.erase(ticket);
         return bag;

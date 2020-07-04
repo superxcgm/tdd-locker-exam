@@ -34,7 +34,7 @@ public:
 
     std::optional<Ticket> store(Bag *bag);
 
-    Bag *take(Ticket &ticket);
+    Bag *take(const Ticket &ticket);
 
     bool isNotFull() {
         return capacity_ != ticket_bag_map.size();
@@ -42,6 +42,10 @@ public:
 
     bool isFull() {
         return !isNotFull();
+    }
+
+    bool isReleasedAndNotUsedTicket(const Ticket &ticket) {
+        return ticket_bag_map.find(ticket) != ticket_bag_map.end();
     }
 };
 

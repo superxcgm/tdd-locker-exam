@@ -49,3 +49,14 @@ TEST(PrimaryLockerRobotTest,
 
     ASSERT_THROW(robot.store(&bag), Locker::LockerFullException);
 }
+
+TEST(PrimaryLockerRobotTest, should_take_correct_bag_when_take_bag_given_valid_ticket) {
+    auto locker = Locker(1, Size::kMedium);
+    PrimaryLockerRobot robot({&locker});
+    Bag bag;
+    auto optional_ticket = robot.store(&bag);
+
+    auto got_bag = robot.take(optional_ticket.value());
+
+    ASSERT_EQ(got_bag, &bag);
+}

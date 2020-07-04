@@ -4,7 +4,9 @@
 
 #include "primary_locker_robot.h"
 
-PrimaryLockerRobot::PrimaryLockerRobot(std::vector<Locker *> lockers) : lockers_(lockers) {
+#include <utility>
+
+PrimaryLockerRobot::PrimaryLockerRobot(std::vector<Locker *> lockers) : lockers_(std::move(lockers)) {
 
 }
 
@@ -15,4 +17,13 @@ std::optional<Ticket> PrimaryLockerRobot::store(Bag *bag) {
         }
     }
     throw Locker::LockerFullException();
+}
+
+Bag *PrimaryLockerRobot::take(const Ticket &ticket) {
+    for (auto &locker : lockers_) {
+        if (locker->isReleasedAndNotUsedTicket(ticket)) {
+            return locker->take(ticket);
+        }
+    }
+    return nullptr;
 }
