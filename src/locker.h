@@ -10,10 +10,16 @@
 #include "bag.h"
 
 class Locker {
-
+    const int capacity_;
+    int available_capacity_;
 public:
     Locker(int capacity);
+
     std::optional<Ticket> store(Bag *bag);
+
+    class LockerFullException : public std::exception {
+
+    };
 };
 
 

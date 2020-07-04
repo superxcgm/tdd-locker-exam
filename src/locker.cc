@@ -4,10 +4,12 @@
 
 #include "locker.h"
 
-Locker::Locker(int capacity) {
-
-}
+Locker::Locker(int capacity) : capacity_(capacity), available_capacity_(capacity) {}
 
 std::optional<Ticket> Locker::store(Bag *bag) {
+    if (available_capacity_ <= 0) {
+        throw LockerFullException();
+    }
+    --available_capacity_;
     return Ticket{};
 }
