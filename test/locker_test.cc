@@ -4,9 +4,10 @@
 #include "gtest/gtest.h"
 #include "locker.h"
 #include "ticket.h"
+#include "optional"
 
 TEST(LockerTest, should_store_bag_success_and_return_ticket_when_store_bag_given_locker_has_available_capacity) {
-    Locker locker(6);
+    Locker locker(6, Size::kSmall);
 
     std::optional<Ticket> optional = locker.store({});
 
@@ -14,7 +15,7 @@ TEST(LockerTest, should_store_bag_success_and_return_ticket_when_store_bag_given
 }
 
 TEST(LockerTest, should_throw_LockerFullException_when_store_bag_given_locker_full) {
-    Locker locker(1);
+    Locker locker(1, Size::kSmall);
 
     locker.store({});
 
@@ -22,7 +23,7 @@ TEST(LockerTest, should_throw_LockerFullException_when_store_bag_given_locker_fu
 }
 
 TEST(LockerTest, should_take_correct_bag_when_take_bag_given_valid_ticket) {
-    Locker locker(1);
+    Locker locker(1, Size::kSmall);
     Bag bag;
     auto optional_ticket = locker.store(&bag);
 
@@ -32,8 +33,15 @@ TEST(LockerTest, should_take_correct_bag_when_take_bag_given_valid_ticket) {
 }
 
 TEST(LockerTest, should_throw_InvalidTicketException_when_take_bag_given_fake_ticket) {
-    Locker locker(1);
-    auto fake_ticket = Ticket{666};
+    Locker locker(1, Size::kSmall);
+    auto fake_ticket = Ticket{666, Size::kSmall};
 
     ASSERT_THROW(locker.take(fake_ticket), Locker::InvalidTicketException);
+}
+
+TEST(LockerTest, should_throw_WrongTicketTypeException_when_take_bag_given_ticket_type_not_same_with_locker_type) {
+    Locker locker(1, Size::kSmall);
+    auto ticket = Ticket{66, Size::kLarge};
+
+    ASSERT_THROW(locker.take(ticket), Locker::WrongTicketTypeException);
 }

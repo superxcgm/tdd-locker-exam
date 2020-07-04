@@ -11,14 +11,7 @@
 #include "bag.h"
 
 class Locker {
-    const int capacity_;
-    int available_capacity_;
-    std::unordered_map<Ticket, Bag *, Ticket::HashFunc> ticket_bag_map;
 public:
-    Locker(int capacity);
-
-    std::optional<Ticket> store(Bag *bag);
-
     class LockerFullException : public std::exception {
 
     };
@@ -26,6 +19,21 @@ public:
     class InvalidTicketException : public std::exception {
 
     };
+
+    class WrongTicketTypeException : public std::exception {
+
+    };
+
+private:
+    const int capacity_;
+    int available_capacity_;
+    const Size size_;
+    std::unordered_map<Ticket, Bag *, Ticket::HashFunc> ticket_bag_map;
+public:
+
+    Locker(int capacity, Size size);
+
+    std::optional<Ticket> store(Bag *bag);
 
     Bag *take(Ticket &ticket);
 };
