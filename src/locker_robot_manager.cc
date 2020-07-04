@@ -23,5 +23,11 @@ std::optional<Ticket> LockerRobotManager::store(Bag *bag) {
 }
 
 Bag *LockerRobotManager::take(const Ticket &ticket) {
-    return locker_->take(ticket);
+    switch (ticket.size_) {
+        case Size::kSmall:
+            return locker_->take(ticket);
+        case Size::kMedium:
+            return primary_locker_robot_->take(ticket);
+    }
+    return nullptr;
 }
