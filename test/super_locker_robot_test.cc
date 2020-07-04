@@ -51,3 +51,18 @@ TEST(SuperLockerRobot,
     auto got_bag = first_locker.take(optional_ticket.value());
     ASSERT_EQ(got_bag, &bag);
 }
+
+TEST(SuperLockerRobot,
+     should_throw_LockerFullException_when_store_bag_given_SuperLockerRobot_manager_two_L_size_locker_and_both_full) {
+    auto first_locker = Locker(1, Size::kLarge);
+    Bag useless_bag1;
+    first_locker.store(&useless_bag1);
+    auto second_locker = Locker(1, Size::kLarge);
+    Bag useless_bag2;
+    second_locker.store(&useless_bag2);
+    SuperLockerRobot robot({&first_locker, &second_locker});
+    Bag bag;
+
+    ASSERT_THROW(robot.store(&bag), Locker::LockerFullException);
+}
+
