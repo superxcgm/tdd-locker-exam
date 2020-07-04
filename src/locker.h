@@ -23,6 +23,10 @@ public:
 
     };
 
+    class InvalidTicketException : public std::exception {
+
+    };
+
     Bag *take(Ticket &ticket);
 };
 

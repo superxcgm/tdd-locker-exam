@@ -20,5 +20,5 @@ Bag *Locker::take(Ticket &ticket) {
     if (ticket_bag_map.find(ticket) != ticket_bag_map.end()) {
         return ticket_bag_map[ticket];
     }
-    return nullptr;
+    throw InvalidTicketException();
 }

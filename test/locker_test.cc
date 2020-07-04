@@ -30,3 +30,10 @@ TEST(LockerTest, should_take_correct_bag_when_take_bag_given_valid_ticket) {
 
     ASSERT_EQ(got_bag, &bag);
 }
+
+TEST(LockerTest, should_throw_InvalidTicketException_when_take_bag_given_fake_ticket) {
+    Locker locker(1);
+    auto fake_ticket = Ticket{666};
+
+    ASSERT_THROW(locker.take(fake_ticket), Locker::InvalidTicketException);
+}

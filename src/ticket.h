@@ -11,11 +11,11 @@
 
 struct Ticket {
 private:
-    Ticket(int id) : id_(id) {}
-
     static int id_count_;
 public:
     int id_;
+
+    Ticket(int id) : id_(id) {}
 
     static Ticket GenerateTicket() {
         return Ticket{++id_count_};
