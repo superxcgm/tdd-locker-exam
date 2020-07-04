@@ -28,6 +28,8 @@ Bag *LockerRobotManager::take(const Ticket &ticket) {
             return locker_->take(ticket);
         case Size::kMedium:
             return primary_locker_robot_->take(ticket);
+        case Size::kLarge:
+            return super_locker_robot_->take(ticket);
     }
     return nullptr;
 }
